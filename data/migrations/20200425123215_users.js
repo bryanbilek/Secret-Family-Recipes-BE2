@@ -1,4 +1,3 @@
-
 exports.up = function (knex) {
     return knex.schema
         //each field required; username has to be unique

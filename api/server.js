@@ -5,6 +5,7 @@ const cors = require('cors');
 //routers go here
 const usersRouter = require('../users/usersRouter');
 const authRouter = require('../auth/authRouter');
+const recipesRouter = require('../recipes/recipesRouter');
 const restricted = require('../middleware/restricted');
 
 const server = express();
@@ -20,5 +21,6 @@ server.get('/', (req, res) => {
 //routers.use go here
 server.use('/api/auth', authRouter);
 server.use('/api/users', restricted, usersRouter);
+server.use('/api/recipes', restricted, recipesRouter);
 
 module.exports = server;
