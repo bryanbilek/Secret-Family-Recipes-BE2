@@ -24,7 +24,7 @@ function findByNewest() {
 }
 
 function insert(recipe) {
-    return db('users')
+    return db('recipes')
         .insert(recipe)
         .then(ids => {
             return findById(ids[0]);
@@ -53,4 +53,20 @@ function findIngredients() {
     return db('ingredients as i')
         .join('recipes as r', 'r.id', 'i.recipe_id')
         .select('i.recipe_id', 'i.id', 'i.ingredient_name as ingredient', 'i.ingredient_amount as amount')
+}
+
+function insertStep(step) {
+    return db('steps')
+        .insert(step)
+        .then(ids => {
+            return findById(ids[0]);
+        });
+}
+
+function insertIngredient(ingredient) {
+    return db('ingredients')
+        .insert(ingredient)
+        .then(ids => {
+            return findById(ids[0]);
+        });
 }

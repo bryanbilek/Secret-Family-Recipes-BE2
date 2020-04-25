@@ -55,3 +55,5 @@ router.delete('/:id', (req, res) => {
             res.status(500).json({ message: 'Problem deleting user' });
         });
 });
+
+module.exports = router;

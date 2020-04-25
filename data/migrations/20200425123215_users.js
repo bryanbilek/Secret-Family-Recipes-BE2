@@ -14,7 +14,7 @@ exports.up = function (knex) {
         .createTable('recipes', tbl => {
             tbl.increments();
             tbl.integer('user_id').references('id').inTable('users').unsigned().notNullable().onUpdate('CASCADE').onDelete('CASCADE');
-            tbl.varBinary('image');//need to figure out the image data type
+            tbl.string('image');//need to figure out the image data type
             tbl.string('recipe_name').notNullable();
             tbl.text('description', 255).notNullable();//keeping description to a max of 255 chars
             tbl.string('prep_time').notNullable();
@@ -26,7 +26,7 @@ exports.up = function (knex) {
             tbl.increments();
             tbl.integer('recipe_id').references('id').inTable('recipes').unsigned().notNullable().onUpdate('CASCADE').onDelete('CASCADE');
             tbl.string('ingredient_name').notNullable();
-            tbl.integer('ingredient_amount').notNullable();
+            tbl.string('ingredient_amount').notNullable();
         })
 
         //each field required; recipe_id refers to recipes tbl

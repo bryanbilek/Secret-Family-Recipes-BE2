@@ -1,4 +1,5 @@
 const express = require('express');
+const server = express();
 const helmet = require('helmet');
 const cors = require('cors');
 
@@ -8,7 +9,6 @@ const authRouter = require('../auth/authRouter');
 const recipesRouter = require('../recipes/recipesRouter');
 const restricted = require('../middleware/restricted');
 
-const server = express();
 
 server.use(express.json());
 server.use(cors());
@@ -20,7 +20,7 @@ server.get('/', (req, res) => {
 
 //routers.use go here
 server.use('/api/auth', authRouter);
-server.use('/api/users', restricted, usersRouter);
-server.use('/api/recipes', restricted, recipesRouter);
+server.use('/api/users', usersRouter);
+server.use('/api/recipes', recipesRouter);
 
 module.exports = server;
