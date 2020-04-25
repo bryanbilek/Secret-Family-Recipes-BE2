@@ -25,7 +25,7 @@ router.get('/:id', (req, res) => {
 
 //GET /api/users/:id/recipes
 router.get('/:id/recipes', (req, res) => {
-    Users.findUserRecipes()
+    Users.findUserRecipes(req.params.id)
         .then(recipe => {
             res.status(200).json(recipe);
         })

@@ -21,6 +21,6 @@ server.get('/', (req, res) => {
 //routers.use go here
 server.use('/api/auth', authRouter);
 server.use('/api/users', usersRouter);
-server.use('/recipes', recipesRouter);
+server.use('/api/recipes', recipesRouter);
 
 module.exports = server;
