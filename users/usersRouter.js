@@ -3,7 +3,7 @@ const Users = require('./usersModel');
 
 //GET /api/users
 router.get('/', (req, res) => {
-    Users.find(req.query)
+    Users.find()
         .then(users => {
             res.status(200).json(users);
         })
