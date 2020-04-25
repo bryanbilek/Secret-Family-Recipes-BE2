@@ -4,6 +4,8 @@ module.exports = {
     find,
     findById,
     findByNewest,
+    findSteps,
+    findIngredients,
     insert,
     update,
     remove
@@ -39,4 +41,16 @@ function remove(id) {
     return db('recipes')
         .where('id', id)
         .del();
+}
+
+function findSteps() {
+    return db('steps as s')
+        .join('recipes as r', 'r.id', 's.recipe_id')
+        .select('s.recipe_id', 's.id', 's.step_number as step', 's.step_instruction as instruction')
+}
+
+function findIngredients() {
+    return db('ingredients as i')
+        .join('recipes as r', 'r.id', 'i.recipe_id')
+        .select('i.recipe_id', 'i.id', 'i.ingredient_name as ingredient', 'i.ingredient_amount as amount')
 }

@@ -59,3 +59,25 @@ router.delete('/:id', (req, res) => {
             res.status(500).json({ message: 'Problem deleting recipe' });
         });
 });
+
+//GET /api/recipes/:id/ingredients
+router.get('/:id/ingredients', (req, res) => {
+    Recipes.findIngredients(req.params.id)
+        .then(ingredients => {
+            res.status(200).json(ingredients);
+        })
+        .catch(err => {
+            res.status(500).json({ message: 'Problem getting ingredients' });
+        });
+});
+
+//GET /api/recipes/:id/steps
+router.get('/:id/steps', (req, res) => {
+    Recipes.findSteps(req.params.id)
+        .then(steps => {
+            res.status(200).json(steps);
+        })
+        .catch(err => {
+            res.status(500).json({ message: 'Problem getting steps' });
+        });
+});
