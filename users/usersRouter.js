@@ -23,6 +23,17 @@ router.get('/:id', (req, res) => {
         });
 });
 
+//GET /api/users/:id/recipes
+router.get('/:id', (req, res) => {
+    Users.findUserRecipes()
+        .then(recipe => {
+            res.status(200).json(recipe);
+        })
+        .catch(err => {
+            res.status(500).json({ message: 'Problem retrieving recipes' });
+        });
+});
+
 //POST /api/users
 router.post('/', (req, res) => {
     Users.insert(req.body)

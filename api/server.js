@@ -20,7 +20,7 @@ server.get('/', (req, res) => {
 
 //routers.use go here
 server.use('/api/auth', authRouter);
-server.use('/api/users', usersRouter);
-server.use('/api/recipes', recipesRouter);
+server.use('/api/users', restricted, usersRouter);
+server.use('/recipes', restricted, recipesRouter);
 
 module.exports = server;

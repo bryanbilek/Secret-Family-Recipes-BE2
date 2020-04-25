@@ -3,7 +3,6 @@ const db = require('../data/dbConfig.js');
 module.exports = {
     find,
     findById,
-    findByNewest,
     findSteps,
     findIngredients,
     insert,
@@ -17,10 +16,6 @@ function find() {
 
 function findById(id) {
     return db('recipes').where({ id }).first();
-}
-
-function findByNewest() {
-    return db('recipes').orderBy('created_at');
 }
 
 function insert(recipe) {
@@ -46,13 +41,13 @@ function remove(id) {
 function findSteps() {
     return db('steps as s')
         .join('recipes as r', 'r.id', 's.recipe_id')
-        .select('s.recipe_id', 's.id', 's.step_number as step', 's.step_instruction as instruction')
+        .select('s.recipe_id as recipe', 'r.recipe_name as name', 's.id', 's.step_number as step', 's.step_instruction as instruction')
 }
 
 function findIngredients() {
     return db('ingredients as i')
         .join('recipes as r', 'r.id', 'i.recipe_id')
-        .select('i.recipe_id', 'i.id', 'i.ingredient_name as ingredient', 'i.ingredient_amount as amount')
+        .select('i.recipe_id as recipe', 'r.recipe_name as name', 'i.id', 'i.ingredient_name as ingredient', 'i.ingredient_amount as amount')
 }
 
 function insertStep(step) {
