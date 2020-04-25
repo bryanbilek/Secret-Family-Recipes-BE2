@@ -24,7 +24,7 @@ router.get('/:id', (req, res) => {
 });
 
 //GET /api/users/:id/recipes
-router.get('/:id', (req, res) => {
+router.get('/:id/recipes', (req, res) => {
     Users.findUserRecipes()
         .then(recipe => {
             res.status(200).json(recipe);

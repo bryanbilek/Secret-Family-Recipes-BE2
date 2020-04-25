@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const Recipes = require('./recipesModel');
 
-//GET /api/recipes
+//GET /recipes
 router.get('/', (req, res) => {
     Recipes.find()
         .then(recipes => {
@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
         });
 });
 
-//GET /api/recipes/:id
+//GET /recipes/:id
 router.get('/:id', (req, res) => {
     Recipes.findById(req.params.id)
         .then(recipe => {
@@ -23,7 +23,7 @@ router.get('/:id', (req, res) => {
         });
 });
 
-//GET /api/recipes/:id/ingredients
+//GET /recipes/:id/ingredients
 router.get('/:id/ingredients', (req, res) => {
     Recipes.findIngredients(req.params.id)
         .then(ingredients => {
@@ -34,7 +34,7 @@ router.get('/:id/ingredients', (req, res) => {
         });
 });
 
-//GET /api/recipes/:id/steps
+//GET /recipes/:id/steps
 router.get('/:id/steps', (req, res) => {
     Recipes.findSteps(req.params.id)
         .then(steps => {
@@ -45,7 +45,7 @@ router.get('/:id/steps', (req, res) => {
         });
 });
 
-//POST /api/recipes
+//POST /recipes
 router.post('/', (req, res) => {
     Recipes.insert(req.body)
         .then(recipes => {
@@ -56,7 +56,7 @@ router.post('/', (req, res) => {
         });
 });
 
-//PUT /api/recipes/:id
+//PUT /recipes/:id
 router.put('/:id', (req, res) => {
     Recipes.update(req.params.id, req.body)
         .then(recipe => {
@@ -67,7 +67,7 @@ router.put('/:id', (req, res) => {
         });
 });
 
-//DELETE /api/recipes/:id
+//DELETE /recipes/:id
 router.delete('/:id', (req, res) => {
     Recipes.remove(req.params.id)
         .then(recipe => {
@@ -78,7 +78,7 @@ router.delete('/:id', (req, res) => {
         });
 });
 
-//POST /api/recipes/:id/steps
+//POST /recipes/:id/steps
 router.post('/', (req, res) => {
     Recipes.insertStep(req.body)
         .then(recipes => {
