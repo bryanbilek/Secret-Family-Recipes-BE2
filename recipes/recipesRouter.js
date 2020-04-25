@@ -79,24 +79,24 @@ router.delete('/:id', (req, res) => {
 });
 
 //POST /recipes/:id/steps
-router.post('/', (req, res) => {
+router.post('/:id/steps', (req, res) => {
     Recipes.insertStep(req.body)
         .then(recipes => {
             res.status(201).json(recipes);
         })
         .catch(err => {
-            res.status(500).json({ message: 'Problem creating recipe' });
+            res.status(500).json({ message: 'Problem creating step' });
         });
 });
 
 //POST /recipes/:id/ingredients
-router.post('/', (req, res) => {
-    Recipes.insertIngredient(req.body)
+router.post('/:id/ingredients', (req, res) => {
+    Recipes.insertIngredient(req.params.id, req.body)
         .then(recipes => {
             res.status(201).json(recipes);
         })
         .catch(err => {
-            res.status(500).json({ message: 'Problem creating recipe' });
+            res.status(500).json({ message: 'Problem creating ingredient' });
         });
 });
 

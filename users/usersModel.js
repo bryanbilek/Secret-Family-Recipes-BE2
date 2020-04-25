@@ -23,13 +23,13 @@ function insert(user) {
     return db('users')
         .insert(user)
         .then(ids => {
-            return getById(ids[0]);
+            return findById(ids[0]);
         });
 }
 
 function update(id, changes) {
     return db('users')
-        .where({ id })
+        .where('id', id)
         .update(changes);
 }
 
