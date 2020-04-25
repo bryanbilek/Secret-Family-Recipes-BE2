@@ -1,18 +1,19 @@
 const db = require('../data/dbConfig.js');
 
 module.exports = {
-    get,
-    getById,
+    find,
+    findBy,
+    findById,
     insert,
     update,
     remove,
 };
 
-function get() {
+function find() {
     return db('users');
 }
 
-function getById(id) {
+function findById(id) {
     return db('users')
         .where({ id })
         .first();

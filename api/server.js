@@ -5,7 +5,7 @@ const cors = require('cors');
 //routers go here
 const usersRouter = require('../users/usersRouter');
 const authRouter = require('../auth/authRouter');
-const restricted = require('../routes/restricted');
+const restricted = require('../middleware/restricted');
 
 const server = express();
 

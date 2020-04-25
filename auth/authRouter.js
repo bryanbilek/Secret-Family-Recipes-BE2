@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const Users = require('../users/usersModel');
+const Users = require('./authModel');
 const secrets = require('../api/secrets');
 
 //POST to /api/auth/register
@@ -10,8 +10,8 @@ router.post('/register', (req, res) => {
     const hash = bcrypt.hashSync(user.password, 8);
     user.password = hash;
     Users.add(user)
-        .then(user => {
-            res.status(200).json({ message: 'Registration successful' });
+        .then(users => {
+            res.status(200).json(users);
         })
         .catch(err => {
             console.log('ERR', err)
