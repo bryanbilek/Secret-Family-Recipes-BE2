@@ -36,11 +36,19 @@ exports.up = function (knex) {
             tbl.integer('recipe_id').references('id').inTable('recipes').unsigned().notNullable().onUpdate('CASCADE').onDelete('CASCADE');
             tbl.integer('step_number').notNullable().unsigned();
             tbl.text('step_instruction', 255).notNullable();//keeping the instructions to a max of 255 chars
+        })
+
+        //because many recipes use an ingredient & that same ingredient can be used in many recipes, there is a many-to-many table linking the id from each table
+        .createTable('recipes_ingredients', tbl => {
+            tbl.primary(['recipe_id', 'ingredient_id']);
+            tbl.integer('recipe_id').references('id').inTable('recipes').unsigned().notNullable().onUpdate('CASCADE').onDelete('CASCADE');
+            tbl.integer('ingredient_id').references('id').inTable('ingredients').unsigned().notNullable().onUpdate('CASCADE').onDelete('CASCADE');
         });
 };
 
 exports.down = function (knex) {
     return knex.schema
+        .dropTableIfExists('recipes_ingredients')
         .dropTableIfExists('steps')
         .dropTableIfExists('ingredients')
         .dropTableIfExists('recipes')
