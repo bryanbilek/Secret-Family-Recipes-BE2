@@ -89,4 +89,15 @@ router.post('/', (req, res) => {
         });
 });
 
+//POST /recipes/:id/ingredients
+router.post('/', (req, res) => {
+    Recipes.insertIngredient(req.body)
+        .then(recipes => {
+            res.status(201).json(recipes);
+        })
+        .catch(err => {
+            res.status(500).json({ message: 'Problem creating recipe' });
+        });
+});
+
 module.exports = router;

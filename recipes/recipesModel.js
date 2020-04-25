@@ -6,6 +6,8 @@ module.exports = {
     findSteps,
     findIngredients,
     insert,
+    insertStep,
+    insertIngredient,
     update,
     remove
 };
@@ -38,16 +40,18 @@ function remove(id) {
         .del();
 }
 
-function findSteps() {
+function findSteps(recipeId) {
     return db('steps as s')
         .join('recipes as r', 'r.id', 's.recipe_id')
         .select('s.recipe_id as recipe', 'r.recipe_name as name', 's.id', 's.step_number as step', 's.step_instruction as instruction')
+        .where('s.recipe_id', recipeId);
 }
 
-function findIngredients() {
+function findIngredients(recipeId) {
     return db('ingredients as i')
         .join('recipes as r', 'r.id', 'i.recipe_id')
         .select('i.recipe_id as recipe', 'r.recipe_name as name', 'i.id', 'i.ingredient_name as ingredient', 'i.ingredient_amount as amount')
+        .where('i.recipe_id', recipeId);
 }
 
 function insertStep(step) {
