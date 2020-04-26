@@ -3,13 +3,19 @@ const db = require('../data/dbConfig.js');
 module.exports = {
     find,
     findById,
-    findSteps,
     findIngredients,
+    findIngredientsById,
+    findSteps,
+    findStepsById,
     insert,
     insertStep,
     insertIngredient,
     update,
-    remove
+    updateIngredient,
+    updateStep,
+    remove,
+    removeIngredient,
+    removeStep
 };
 
 function find() {
@@ -20,24 +26,17 @@ function findById(id) {
     return db('recipes').where({ id }).first();
 }
 
-function insert(recipe) {
-    return db('recipes')
-        .insert(recipe)
-        .then(ids => {
-            return findById(ids[0]);
-        });
+function findIngredients(recipeId) {
+    return db('ingredients as i')
+        .join('recipes as r', 'r.id', 'i.recipe_id')
+        .select('i.recipe_id as recipe', 'r.recipe_name as name', 'i.id', 'i.ingredient_name as ingredient', 'i.ingredient_amount as amount')
+        .where('i.recipe_id', recipeId);
 }
 
-function update(id, changes) {
-    return db('recipes')
+function findIngredientsById(id) {
+    return db('ingredients')
         .where({ id })
-        .update(changes);
-}
-
-function remove(id) {
-    return db('recipes')
-        .where('id', id)
-        .del();
+        .first();
 }
 
 function findSteps(recipeId) {
@@ -47,25 +46,60 @@ function findSteps(recipeId) {
         .where('s.recipe_id', recipeId);
 }
 
-function findIngredients(recipeId) {
-    return db('ingredients as i')
-        .join('recipes as r', 'r.id', 'i.recipe_id')
-        .select('i.recipe_id as recipe', 'r.recipe_name as name', 'i.id', 'i.ingredient_name as ingredient', 'i.ingredient_amount as amount')
-        .where('i.recipe_id', recipeId);
-}
-
-function insertStep(step) {
+function findStepsById(id) {
     return db('steps')
-        .insert(step)
+        .where({ id })
+        .first();
+}
+
+function insert(recipe) {
+    return db('recipes')
+        .insert(recipe)
         .then(ids => {
             return findById(ids[0]);
         });
 }
 
-function insertIngredient(ingredient) {
+function insertStep(step, recipe_id) {
+    return db('steps').insert({ ...step, recipe_id });
+}
+
+function insertIngredient(ingredient, recipe_id) {
+    return db('ingredients').insert({ ...ingredient, recipe_id });
+}
+
+function update(id, changes) {
+    return db('recipes')
+        .where({ id })
+        .update(changes);
+}
+
+function updateIngredient(id, changes) {
     return db('ingredients')
-        .insert(ingredient)
-        .then(ids => {
-            return findById(ids[0]);
-        });
+        .where('id', id)
+        .update(changes);
+}
+
+function updateStep(id, changes) {
+    return db('steps')
+        .where('id', id)
+        .update(changes);
+}
+
+function remove(id) {
+    return db('recipes')
+        .where('id', id)
+        .del();
+}
+
+function removeIngredient(id) {
+    return db('ingredients')
+        .where('id', id)
+        .del();
+}
+
+function removeStep(id) {
+    return db('steps')
+        .where('id', id)
+        .del();
 }

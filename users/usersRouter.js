@@ -34,6 +34,22 @@ router.get('/:id/recipes', (req, res) => {
         });
 });
 
+//GET /api/users/:id/recipes/:id
+router.get('/:id/recipes/:id', (req, res) => {
+    Users.findUserRecipes(req.params.id)
+        .then(recipe => {
+            if (recipe) {
+                Users.findUserRecipesById(req.params.id)
+                    .then(recipeId => {
+                        res.status(200).json(recipeId);
+                    })
+            }
+        })
+        .catch(err => {
+            res.status(500).json({ message: 'Problem retrieving recipes' });
+        });
+});
+
 //POST /api/users
 router.post('/', (req, res) => {
     Users.insert(req.body)
@@ -42,6 +58,22 @@ router.post('/', (req, res) => {
         })
         .catch(err => {
             res.status(500).json({ message: 'Problem creating user' });
+        });
+});
+
+//POST /api/users/:id/recipes
+router.post('/:id/recipes', (req, res) => {
+    Users.findUserRecipes(req.params.id)
+        .then(recipe => {
+            if (recipe) {
+                Users.insertRecipe(req.body, req.params.id)
+                    .then(newRecipe => {
+                        res.status(200).json(newRecipe);
+                    });
+            }
+        })
+        .catch(err => {
+            res.status(500).json({ message: 'Problem retrieving recipes' });
         });
 });
 
@@ -56,6 +88,22 @@ router.put('/:id', (req, res) => {
         });
 });
 
+//PUT /api/users/:id/recipes/:id
+router.put('/:id/recipes/:id', (req, res) => {
+    Users.findUserRecipes(req.params.id)
+        .then(recipe => {
+            if (recipe) {
+                Users.updateUserRecipe(req.params.id, req.body)
+                    .then(newRecipe => {
+                        res.status(200).json(newRecipe);
+                    });
+            }
+        })
+        .catch(err => {
+            res.status(500).json({ message: 'Problem retrieving recipes' });
+        });
+});
+
 //DELETE /api/users/:id
 router.delete('/:id', (req, res) => {
     Users.remove(req.params.id)
@@ -64,6 +112,22 @@ router.delete('/:id', (req, res) => {
         })
         .catch((err) => {
             res.status(500).json({ message: 'Problem deleting user' });
+        });
+});
+
+//DELETE /api/users/:id/recipes/:id
+router.delete('/:id/recipes/:id', (req, res) => {
+    Users.findUserRecipes(req.params.id)
+        .then(recipe => {
+            if (recipe) {
+                Users.removeUserRecipe(req.params.id)
+                    .then(newRecipe => {
+                        res.status(200).json(newRecipe);
+                    });
+            }
+        })
+        .catch(err => {
+            res.status(500).json({ message: 'Problem retrieving recipes' });
         });
 });
 

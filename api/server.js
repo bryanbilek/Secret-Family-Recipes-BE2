@@ -7,6 +7,7 @@ const cors = require('cors');
 const usersRouter = require('../users/usersRouter');
 const authRouter = require('../auth/authRouter');
 const recipesRouter = require('../recipes/recipesRouter');
+const ingredientsRouter = require('../ingredients/ingredientsRouter');
 const restricted = require('../middleware/restricted');
 
 
@@ -22,5 +23,6 @@ server.get('/', (req, res) => {
 server.use('/api/auth', authRouter);
 server.use('/api/users', usersRouter);
 server.use('/api/recipes', recipesRouter);
+// server.use('/api/ingredients', ingredientsRouter);
 
 module.exports = server;
