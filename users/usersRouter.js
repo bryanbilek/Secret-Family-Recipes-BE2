@@ -68,7 +68,7 @@ router.post('/:id/recipes', (req, res) => {
             if (recipe) {
                 Users.insertRecipe(req.body, req.params.id)
                     .then(newRecipe => {
-                        res.status(200).json(newRecipe);
+                        res.status(201).json(newRecipe);
                     });
             }
         })
@@ -95,7 +95,7 @@ router.put('/:id/recipes/:id', (req, res) => {
             if (recipe) {
                 Users.updateUserRecipe(req.params.id, req.body)
                     .then(newRecipe => {
-                        res.status(200).json(newRecipe);
+                        res.status(201).json(newRecipe);
                     });
             }
         })
@@ -122,7 +122,7 @@ router.delete('/:id/recipes/:id', (req, res) => {
             if (recipe) {
                 Users.removeUserRecipe(req.params.id)
                     .then(newRecipe => {
-                        res.status(200).json(newRecipe);
+                        res.status(201).json(newRecipe);
                     });
             }
         })

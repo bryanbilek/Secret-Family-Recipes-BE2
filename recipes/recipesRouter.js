@@ -141,7 +141,7 @@ router.put('/:id/ingredients/:id', (req, res) => {
             if (ingredient) {
                 Recipes.updateIngredient(req.params.id, req.body)
                     .then(newIngredient => {
-                        res.status(200).json(newIngredient);
+                        res.status(201).json(newIngredient);
                     });
             }
         })
@@ -157,7 +157,7 @@ router.put('/:id/steps/:id', (req, res) => {
             if (ingredient) {
                 Recipes.updateStep(req.params.id, req.body)
                     .then(newStep => {
-                        res.status(200).json(newStep);
+                        res.status(201).json(newStep);
                     });
             }
         })
@@ -184,7 +184,7 @@ router.delete('/:id/ingredients/:id', (req, res) => {
             if (ingredient) {
                 Recipes.removeIngredient(req.params.id)
                     .then(ingredientId => {
-                        res.status(200).json(ingredientId);
+                        res.status(201).json(ingredientId);
                     });
             }
         })
@@ -200,7 +200,7 @@ router.delete('/:id/steps/:id', (req, res) => {
             if (step) {
                 Recipes.removeStep(req.params.id)
                     .then(stepId => {
-                        res.status(200).json(stepId);
+                        res.status(201).json(stepId);
                     });
             }
         })

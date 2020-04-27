@@ -11,7 +11,7 @@ router.post('/register', (req, res) => {
     user.password = hash;
     Users.add(user)
         .then(users => {
-            res.status(200).json(users);
+            res.status(201).json(users);
         })
         .catch(err => {
             console.log('ERR', err)
@@ -26,13 +26,40 @@ router.post('/login', (req, res) => {
         .then(([user]) => {
             if (user && bcrypt.compareSync(password, user.password)) {
                 const token = generateToken(user);
-                res.status(200).json({ message: `Welcome, ${token}!` });
+                res.status(201).json({ message: `Welcome, ${token}!` });
             } else {
                 res.status(401).json({ message: 'Invalid username or password' })
             }
         })
         .catch(err => {
             res.status(500).json({ message: 'Problem logging in' });
+        });
+});
+
+//PUT to api/auth/edit_user/:id
+router.put('/edit_user/:id', (req, res) => {
+    const { id } = req.params.id;
+    const updatedUser = req.body;
+    updatedUser.id = id;
+    const hash = bcrypt.hashSync(updatedUser.password, 10);
+    updatedUser.password = hash;
+    Users.update(req.body, req.params.id)
+        .then(user => {
+            res.status(204).json({ message: 'Successfully updated user' });
+        })
+        .catch(err => {
+            res.status(500).json({ message: 'Problem updating user' });
+        });
+});
+
+//DELETE to api/auth/delete_user/:id
+router.delete('/delete_user/:id', (req, res) => {
+    Users.remove(req.params.id)
+        .then(user => {
+            res.status(204).json(user);
+        })
+        .catch(err => {
+            res.status(500).json({ message: 'Problem deleting user' });
         });
 });
 
